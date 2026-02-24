@@ -27,6 +27,7 @@ DevspireHub is a beginner-friendly learning platform offering step-by-step tutor
 * 🪟 Windows Setup
 
 ✨ Key Features:
+
 ✅ Hands-on Projects - Learn by doing real-world examples
 ✅ Clear Explanations - Easy-to-follow, beginner-friendly content
 ✅ Practical Tools - Using industry-standard tools and open-source resources
