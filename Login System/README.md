@@ -10,9 +10,9 @@
 ---
 
 ## 📱 Stay Updated and Follow On:
-- 📸 **Instagram:** DevspireHub on Instagram  
-- 💻 **GitHub:** DevspireHub on GitHub  
-- 🔗 **LinkedIn:** DevspireHub on LinkedIn
+- 📸 **Instagram:** @devspirehub on Instagram  
+- 💻 **GitHub:** [DevspireHub](https://github.com/kumaradoss16) on GitHub  
+- 🔗 **LinkedIn:** [DevspireHub](https://www.linkedin.com/in/kumaradoss-s/) on LinkedIn
 
 ---
 
@@ -50,10 +50,10 @@ Visit **https://devspirehub.com** to start learning today!
 
 | Platform   | Link              |
 |------------|-------------------|
-| 🌐 Website | devspirehub.com   |
+| 🌐 Website | [devspirehub.com](https://devspirehub.com)   |
 | 📸 Instagram | @devspirehub    |
-| 💻 GitHub  | kumaradoss16      |
-| 🔗 LinkedIn | Kumaradoss s     |
+| 💻 GitHub  | [kumaradoss16](https://github.com/kumaradoss16)      |
+| 🔗 LinkedIn | [Kumaradoss s](https://www.linkedin.com/in/kumaradoss-s/)     |
 
 ---
 
