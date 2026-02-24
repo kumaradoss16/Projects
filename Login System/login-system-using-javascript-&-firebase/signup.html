@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | My App</title>
+    <meta name="description" content="Create a free account to get started." />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+        <h1>Create Your Account</h1>
+        <p>Sign up to access your account securely using Firebase Authentication.</p>
+
+        <form id="signup-form">
+            <div class="labels">
+                <label for="email-signup">Email Address</label>
+                <input type="email" id="email-signup" placeholder="your@example.com" required />
+
+                <label for="password-signup">Password</label>
+                <input type="password" id="password-signup" placeholder="Your password" required />
+            </div>
+
+
+            <button type="button" id="signup-btn">Create Account</button>
+        </form>
+
+        <p class="signup">Already have an account? <a href="index.html">Log in</a></p>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
