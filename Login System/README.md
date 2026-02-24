@@ -1,12 +1,13 @@
 Login System by using JavaScript and Firebase
-🌐 Official Website
-
-* Visit: https://devspirehub.com
-* Alternative: https://www.devspirehub.com
 
 📖 Full Tutorial
 
 * Step-by-step Guide: https://devspirehub.com
+
+🌐 Official Website
+
+* Visit: https://devspirehub.com
+* Alternative: https://www.devspirehub.com
 
 
 📱 Stay Updated and Follow On:
