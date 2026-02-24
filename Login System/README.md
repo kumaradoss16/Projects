@@ -29,10 +29,15 @@ DevspireHub is a beginner-friendly learning platform offering step-by-step tutor
 ✨ Key Features:
 
 ✅ Hands-on Projects - Learn by doing real-world examples
+
 ✅ Clear Explanations - Easy-to-follow, beginner-friendly content
+
 ✅ Practical Tools - Using industry-standard tools and open-source resources
+
 ✅ No Signups Required - Free access without registration
+
 ✅ Privacy First - No tracking or data collection
+
 ✅ Actionable Knowledge - Skills you can apply immediately
 
 🎯 Mission
