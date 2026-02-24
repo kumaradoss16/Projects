@@ -52,8 +52,8 @@ Visit **https://devspirehub.com** to start learning today!
 |------------|-------------------|
 | 🌐 Website | devspirehub.com   |
 | 📸 Instagram | @devspirehub    |
-| 💻 GitHub  | DevspireHub       |
-| 🔗 LinkedIn | DevspireHub      |
+| 💻 GitHub  | kumaradoss16      |
+| 🔗 LinkedIn | Kumaradoss s     |
 
 ---
 
