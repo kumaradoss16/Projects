@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Hand+Pre:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playwrite+AU+QLD:wght@100..400&family=Press+Start+2P&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --dark-bg: #020617;
+    --light-text: #f0f0f0;
+    --color-yellow: #F2B50B;
+
+    --font-h1: clamp(1.5rem, 2.5vw + 1rem, 1.875rem);
+    --font-h2: clamp(1.2rem, 2vw + 0.8rem, 1.55rem);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Saira", sans-serif;
+    color: var(--light-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    height: 100vh;
+}
+
+main {
+    background: var(--dark-bg);
+    max-width: 1200px;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(2, 6, 23, 0.8);
+}
+
+main h1 {
+    text-align: center;
+}
+
+main p {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: #f0f0f0 1px solid;
+}
+
+.labels {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+#login-form label,
+#signup-form label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    margin-bottom: 0.5rem;
+}
+
+#login-form input,
+#signup-form input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: var(--dark-card-bg);
+    border-radius: 5px;
+    color: #2d3748;
+    background-color: #f7fafc;
+    transition: all 0.2s ease-in-out;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+#login-btn,
+#signup-btn {
+    background: var(--color-yellow);
+    padding: 0.75rem 1rem;
+    width: 100%;
+    border: none;
+    font-family: "Saira", sans-serif;
+    color: var(--dark-bg);
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+hr {
+    margin: 20px 0;
+}
+
+#google-signin-btn {
+    background: lightseagreen;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    border: none;
+    font-family: "Saira", sans-serif;
+    color: var(--dark-bg);
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#login-btn:hover,
+#signup-btn:hover {
+    background: #FFC300;
+}
+
+.signup, .signin {
+    margin-top: 14px;
+}
+
+.signin a,
+.signup a {
+    color: var(--color-yellow);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signin a:hover,
+.signup a:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | My App</title>
+    <meta name="description" content="Login to access your account securely using Firebase Authentication." />
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <main>
+        <h1>Welcome Back</h1>
+        <p>Log in to your account below.</p>
+
+        <form action="" id="login-form">
+            <div class="labels">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" placeholder="your@example.com" required />
+
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Your password" required />
+
+            </div>
+            <button type="button" id="login-btn">Login with Email</button>
+        </form>
+
+        <hr>
+
+        <button id="google-signin-btn"><i class="fa-brands fa-google"></i>
+            Sign in with Google
+        </button>
+
+        <p class="signin">Don't have an account? <a href="signup.html">Sign Up for Free</a></p>
+
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
