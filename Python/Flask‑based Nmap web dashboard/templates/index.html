@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nmap Web Dashboard (Flask + API + Downloads)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+            border-radius: 4px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #e5e7eb;
+        }
+
+        button {
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            background: #22c55e;
+            color: #022c22;
+            font-weight: 600;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            min-height: 1.2rem;
+        }
+
+        .status.error {
+            color: #fca5a5;
+        }
+
+        .status.ok {
+            color: #6ee7b7;
+        }
+
+        .meta {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #1f2933;
+            padding: 0.4rem 0.5rem;
+            text-align: left;
+        }
+
+        th {
+            background: #020617;
+        }
+
+        tr:nth-child(even) {
+            background: #020617;
+        }
+
+        tr:nth-child(odd) {
+            background: #020617;
+        }
+
+        .open {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .closed {
+            color: #f87171;
+        }
+
+        .filtered {
+            color: #eab308;
+        }
+
+        .downloads {
+            margin-top: 1rem;
+            display: none;
+            gap: 0.5rem;
+        }
+
+        .downloads a {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 4px;
+            background: #1d4ed8;
+            color: #e5e7eb;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Automating Nmap with Python – Web Dashboard</h1>
+        <p style="color:#9ca3af;">
+            Run Nmap scans from your browser. Backend powered by Flask + python-nmap.
+            Use only on networks you own or have permission to scan.
+        </p>
+
+        <form id="scan-form">
+            <label for="target">Target IP or Subnet</label>
+            <input id="target" name="target" type="text" placeholder="e.g. 192.168.1.10 or 192.168.1.0/24" required>
+
+            <label for="ports">Port Range (optional)</label>
+            <input id="ports" name="ports" type="text" placeholder="e.g. 1-1024 or 22,80,443">
+
+            <button type="submit" id="scan-btn">Run Scan</button>
+        </form>
+
+        <div class="status" id="status"></div>
+
+        <div class="meta" id="meta"></div>
+
+        <div class="downloads" id="downloads">
+            <a id="download-csv" href="#" target="_blank">Download CSV</a>
+            <a id="download-json" href="#" target="_blank">Download JSON</a>
+        </div>
+
+        <table id="results-table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Host</th>
+                    <th>Hostname</th>
+                    <th>Protocol</th>
+                    <th>Port</th>
+                    <th>State</th>
+                    <th>Service</th>
+                    <th>Product</th>
+                    <th>Version</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+            </tbody>
+        </table>
+        <p style="margin-top:1rem;font-size:0.85rem;">
+            <a href="{{ url_for('history') }}" style="color:#60a5fa;">View scan history</a>
+        </p>
+    </div>
+
+    <script>
+        const form = document.getElementById("scan-form");
+        const btn = document.getElementById("scan-btn");
+        const statusEl = document.getElementById("status");
+        const metaEl = document.getElementById("meta");
+        const table = document.getElementById("results-table");
+        const tbody = document.getElementById("results-body");
+        const downloadsBox = document.getElementById("downloads");
+        const downloadCsvLink = document.getElementById("download-csv");
+        const downloadJsonLink = document.getElementById("download-json");
+
+        let lastScanId = null;
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const target = document.getElementById("target").value.trim();
+            const ports = document.getElementById("ports").value.trim();
+
+            if (!target) {
+                statusEl.textContent = "Target is required.";
+                statusEl.className = "status error";
+                return;
+            }
+
+            btn.disabled = true;
+            statusEl.textContent = "Running scan... this may take a moment.";
+            statusEl.className = "status";
+
+            metaEl.textContent = "";
+            table.style.display = "none";
+            tbody.innerHTML = "";
+            downloadsBox.style.display = "none";
+            lastScanId = null;
+
+            try {
+                const resp = await fetch("/api/scan", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ target, ports })
+                });
+
+                const data = await resp.json();
+
+                if (!resp.ok) {
+                    statusEl.textContent = data.error || "Scan failed.";
+                    statusEl.className = "status error";
+                    return;
+                }
+
+                statusEl.textContent = `Scan completed. ${data.count} results.`;
+                statusEl.className = "status ok";
+
+                metaEl.textContent = `Target: ${data.target} | Ports: ${data.ports} | Time: ${data.timestamp}`;
+
+                if (data.results && data.results.length > 0) {
+                    data.results.forEach(r => {
+                        const tr = document.createElement("tr");
+
+                        tr.innerHTML = `
+            <td>${r.host}</td>
+            <td>${r.hostname || ""}</td>
+            <td>${r.protocol}</td>
+            <td>${r.port}</td>
+            <td class="${r.port_state}">${r.port_state}</td>
+            <td>${r.service || ""}</td>
+            <td>${r.product || ""}</td>
+            <td>${r.version || ""}</td>
+          `;
+
+                        tbody.appendChild(tr);
+                    });
+                    table.style.display = "table";
+                } else {
+                    table.style.display = "none";
+                }
+
+                // Enable download links for this scan_id
+                lastScanId = data.scan_id;
+                if (lastScanId) {
+                    downloadCsvLink.href = `/api/download/${lastScanId}.csv`;
+                    downloadJsonLink.href = `/api/download/${lastScanId}.json`;
+                    downloadsBox.style.display = "flex";
+                }
+
+            } catch (err) {
+                console.error(err);
+                statusEl.textContent = "Error calling API: " + err;
+                statusEl.className = "status error";
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

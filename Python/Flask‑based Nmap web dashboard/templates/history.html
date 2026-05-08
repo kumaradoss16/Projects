@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nmap Scan History</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background:#0f172a; color:#e5e7eb; }
+    h1 { margin-bottom: 0.5rem; }
+    a { color:#60a5fa; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-size: 0.9rem; }
+    th, td { border: 1px solid #1f2933; padding: 0.4rem 0.5rem; text-align: left; }
+    th { background: #020617; }
+    tr:nth-child(even) { background:#020617; }
+    tr:nth-child(odd) { background:#020617; }
+    .actions a { margin-right:0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Nmap Scan History</h1>
+  <p><a href="{{ url_for('index') }}">&larr; Back to Dashboard</a></p>
+
+  {% if scans %}
+    <table>
+      <thead>
+        <tr>
+          <th>Timestamp (UTC)</th>
+          <th>Target</th>
+          <th>Ports</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for s in scans %}
+        <tr>
+          <td>{{ s.timestamp }}</td>
+          <td>{{ s.target }}</td>
+          <td>{{ s.ports }}</td>
+          <td class="actions">
+            <a href="{{ url_for('api_download', scan_id=s.id, fmt='csv') }}">CSV</a>
+            <a href="{{ url_for('api_download', scan_id=s.id, fmt='json') }}">JSON</a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No scans recorded yet.</p>
+  {% endif %}
+</body>
+</html>
